@@ -12,7 +12,8 @@ import {
 } from 'reactstrap';
 
 import List from '../../components/List';
-import * as Action from '../../modules/itemsAction';
+import * as itemsAction from '../../modules/itemsAction';
+import * as colorsAction from '../../modules/colorsAction';
 
 
 import * as T from './style';
@@ -65,15 +66,25 @@ class ToDo extends Component {
     this.props.removeItem(index);
   };
 
+  setColor = (color) => {
+    this.props.setColor(color);
+  }
+
   render() {
     console.log('ToDo Page - render()');
-    const { items } = this.props;
+    const { items, colors } = this.props;
     const { item } = this.state;
     return (
       <Container>
         <Row>
           <Col>
-            <T.Title>React-Redux to do list</T.Title>
+            <T.Title color={colors}>React-Redux to do liszt</T.Title>
+            <select onChange={e => this.setColor(e.target.value)}>
+              <option value="black">Black</option>
+              <option value="red">Red</option>
+              <option value="blue">Blue</option>
+              <option value="green">Green</option>
+            </select>
           </Col>
         </Row>
         <Row>
@@ -107,16 +118,17 @@ class ToDo extends Component {
   }
 }
 
-const mapStateToProps = ({ items }) => {
+const mapStateToProps = ({ items, colors }) => {
   console.log('ToDo Page - mapStateToProps()');
   return {
     items,
+    colors
   };
 };
 
 const mapDispatchToProps = dispatch => {
   console.log('ToDo Page - mapDispatchToProps()');
-  return bindActionCreators(Action, dispatch);
+  return bindActionCreators({...itemsAction, ...colorsAction}, dispatch);
 };
 
 export default connect(

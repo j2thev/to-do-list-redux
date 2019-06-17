@@ -4,11 +4,13 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import logger from 'redux-logger';
 
 import itemsReducer from './itemsReducer';
+import colorsReducer from './colorsReducer';
 
 export default function configureStore(initialState) {
   const store = createStore(
     combineReducers({
       items: itemsReducer,
+      colors: colorsReducer,
       // Define more reducers here
     }),
     initialState,

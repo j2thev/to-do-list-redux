@@ -28,3 +28,4 @@ export const removeItem = itemIndex => {
     payload: itemIndex,
   };
 };
+
